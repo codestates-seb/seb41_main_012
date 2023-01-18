@@ -13,6 +13,8 @@ import LoginModal from "./LoginModal";
 import MapSearchComponent from "./KakaoMap/MapSearchComponent";
 import HeaderFeedHide from "./HeaderFeedHide";
 import ModalPortal from "./ModalPortal";
+import PostRead from "./PostRead";
+import KakaoMap from "./KakaoMap/KakaoMap";
 
 export {
   Header,
@@ -30,4 +32,6 @@ export {
   MapSearchComponent,
   HeaderFeedHide,
   ModalPortal,
+  KakaoMap,
+  PostRead,
 };

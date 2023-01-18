@@ -1,5 +1,6 @@
 import Domain from "./Domain";
 import SearchPage from "./SearchPage";
+import SearchDetailPage from "./SearchDetailPage";
 import MatPicker from "./MatPicker";
 import MatPickerDetail from "./MatPickerDetail";
 import MatPlacePost from "./MatPlacePost";
@@ -10,6 +11,7 @@ import MatPeople from "./MatPeople";
 export {
   Domain,
   SearchPage,
+  SearchDetailPage,
   MatPicker,
   MatPickerDetail,
   MatPlacePost,

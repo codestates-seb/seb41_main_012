@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import ArticleIcon from "@mui/icons-material/Article";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt";
 
 const SearchWrapper = styled.div`
   height: 100%;
-  min-width: calc(1340px * 2 / 5 - 63px);
+  width: calc(1340px * 2 / 5 - 63px);
   z-index: 997;
   padding: 0px 8px 0px 70px;
   background-color: #f8f8f8;
@@ -23,59 +25,72 @@ const SearchWrapper = styled.div`
 
 const SearchTab = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 60px;
-  border: 1px solid black;
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;
 
 const TabButton = styled.li`
-  height: 30px;
-  width: 30px;
-  list-style: none;
-  border: ${(props) =>
-    props.id === "focused" ? "3px solid red" : "1px solid black"};
-`;
-
-const SearchResultBox = styled.div`
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 100%;
+  height: 95px;
+  padding: 0 30px;
+  border-bottom: 1px solid black;
+  list-style: none;
+  .info {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #474747;
+  }
+  .icon {
+    font-size: 55px;
+  }
 `;
-
-interface Pickers {
-  id: number;
-  name: string;
-  color: string;
-}
 
 const tabs = [
-  { index: 1, name: "제목" },
-  { index: 2, name: "내용" },
-  { index: 3, name: "유저" },
+  {
+    index: 1,
+    name: "맛포스트",
+    info: "어제 스쳐 지나간 맛포스트가 아른거릴 때 클릭!",
+    icon: <ArticleIcon className="icon" />,
+  },
+  {
+    index: 2,
+    name: "맛플레이스",
+    info: "화제의 그 맛플레이스를 찾고 싶을 때 클릭!",
+    icon: <RestaurantIcon className="icon" />,
+  },
+  {
+    index: 3,
+    name: "맛피플",
+    info: "소문의 맛피플을 찾고 싶을 때 클릭!",
+    icon: <SentimentSatisfiedAltIcon className="icon" />,
+  },
 ];
 
 const SearchPage: React.FC = () => {
-  const [result, setResult] = useState<Pickers[]>([]);
-  useEffect(() => {
-    try {
-      axios.get<Pickers[]>("http://localhost:3001/groups").then((res) => {
-        setResult(res.data);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }, []);
-
   return (
     <SearchWrapper>
-      <h1>검색</h1>
+      <h1>무엇을 검색하고 싶으신가요?</h1>
       <SearchTab>
         {tabs.map((el) => (
-          <TabButton key={el.index}>{el.name}</TabButton>
+          <Link to={`/search/${el.name}`} key={el.index}>
+            <TabButton>
+              <div className="text-box">
+                <div className="name">{el.name}</div>
+                <div className="info">{el.info}</div>
+              </div>
+              <div className="icon">{el.icon}</div>
+            </TabButton>
+          </Link>
         ))}
       </SearchTab>
-      <SearchResultBox>
-        {result && result.map((list) => <div key={list.id}>결과리스트</div>)}
-      </SearchResultBox>
     </SearchWrapper>
   );
 };
